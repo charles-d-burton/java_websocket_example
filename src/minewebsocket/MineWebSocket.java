@@ -29,6 +29,8 @@ public class MineWebSocket extends WebSocketClient{
 
     /**
      * @param args the command line arguments
+     * Replace this bit with whatever method you want and you should be able to use
+     * it as is.
      */
     public static void main(String[] args) throws URISyntaxException, InterruptedException {
         c = new MineWebSocket(new URI("ws://chuckyvod.no-ip.biz:5000"), new Draft_10());
