@@ -31,7 +31,7 @@ public class MineWebSocket extends WebSocketClient{
      * @param args the command line arguments
      */
     public static void main(String[] args) throws URISyntaxException, InterruptedException {
-        c = new MineWebSocket(new URI("ws://raspberrypi:5000"), new Draft_10());
+        c = new MineWebSocket(new URI("ws://chuckyvod.no-ip.biz:5000"), new Draft_10());
         c.connectBlocking();
         c.send("things");
         
