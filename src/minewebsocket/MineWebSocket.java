@@ -4,6 +4,9 @@
  */
 package minewebsocket;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.java_websocket.client.WebSocketClient;
@@ -32,27 +35,40 @@ public class MineWebSocket extends WebSocketClient{
      * Replace this bit with whatever method you want and you should be able to use
      * it as is.
      */
-    public static void main(String[] args) throws URISyntaxException, InterruptedException {
+    public static void main(String[] args) throws URISyntaxException, InterruptedException, IOException {
         c = new MineWebSocket(new URI("ws://chuckyvod.no-ip.biz:5000"), new Draft_10());
         c.connectBlocking();
-        c.send("things");
+        String input = null;
+        while (true) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            System.out.print("%>");
+            while ((input = br.readLine()) != null) {
+                
+                if (input.equalsIgnoreCase("end")) break;
+                c.send(input);
+                
+            }
+            if (input.equalsIgnoreCase("end")) break;
+        }
+        c.close();
         
     }
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
-        System.out.println( "opened connection" );
+        System.out.println( "opened connection\n\n\n");
     }
 
+    //What the server sends back to you.
     @Override
     public void onMessage(String message) {
-         System.out.println( "received: " + message );
-         c.close();
+         System.out.println( "\nreceived: " + message + "\n");
+         System.out.print("%>");
     }
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
-        System.out.println( "Connection closed by " + ( remote ? "remote peer" : "us" ) );
+        System.out.println( "Connection closed by " + ( remote ? "remote peer" : "me" ) );
     }
 
     @Override
