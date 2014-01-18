@@ -20,51 +20,42 @@ import org.java_websocket.drafts.Draft_10;
  * @author charles
  */
 public class MineWebSocket {
+    //Ugly hack,never do this for real
+    private static Scanner scan = new Scanner(System.in);
 
     /**
      * @param args the command line arguments
-     * Replace this bit with whatever method you want and you should be able to use
-     * it as is.
      */
     public static void main(String[] args) throws URISyntaxException, InterruptedException, IOException {
         Connection c = setupConnection();
         c.connectBlocking();
         String input = null;
         while (c.isOpen()) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            System.out.print("%>");
-            while ((input = br.readLine()) != null && c.isOpen()) {
-                Gson gson = new Gson();
-                if (input.equalsIgnoreCase("end")) break;
-                c.send(input);
-                
-            }
-            if (input.equalsIgnoreCase("end")) break;
+            c.send(buildMessage());
         }
         c.close();
     }
     
+    //Gets some basic connection info and esatablishes a connection with remote host
     private static Connection setupConnection() throws URISyntaxException {
-        Scanner scan = new Scanner(System.in);
         System.out.print("Host: ");
         String host = scan.nextLine();
         System.out.print("Port: ");
         String port = scan.nextLine();
-        //scan.close();
         return new Connection(new URI("ws://" + host + ":" + port), new Draft_10());
     }
     
     private static String buildMessage() {
         HashMap values = new HashMap();
-        Scanner scan = new Scanner(System.in);
-        String value = "";
-        while (!value.equals("end")) {
-            System.out.print("Pin: ");
-            value = scan.nextLine();
-            String pin = value;
+        System.out.print("Pin Number: ");
+        String pin = scan.nextLine();
+        System.out.print("Value: ");
+        String value = scan.nextLine();
+        values.put(pin, value);
             
-        }
-        
-        return null;
+        Gson gson = new Gson();
+        String json = gson.toJson(values);
+        System.out.println(json);
+        return json;
     }
 }
