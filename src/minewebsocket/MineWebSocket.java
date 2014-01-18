@@ -4,31 +4,21 @@
  */
 package minewebsocket;
 
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft;
+import java.util.Scanner;
+import minewebsocket.handlers.Connection;
 import org.java_websocket.drafts.Draft_10;
-import org.java_websocket.handshake.ServerHandshake;
 
 /**
  *
  * @author charles
  */
-public class MineWebSocket extends WebSocketClient{
-    private static MineWebSocket c = null;
-    private static final int max = 50;
-    private static int count = 0;
-    public MineWebSocket(URI serverUri, Draft draft) {
-        super(serverUri, draft);
-    }
-    
-    public MineWebSocket(URI serverURI) {
-        super(serverURI);
-    }
+public class MineWebSocket {
 
     /**
      * @param args the command line arguments
@@ -36,14 +26,14 @@ public class MineWebSocket extends WebSocketClient{
      * it as is.
      */
     public static void main(String[] args) throws URISyntaxException, InterruptedException, IOException {
-        c = new MineWebSocket(new URI("ws://chuckyvod.no-ip.biz:5000"), new Draft_10());
+        Connection c = setupConnection();
         c.connectBlocking();
         String input = null;
         while (true) {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.print("%>");
             while ((input = br.readLine()) != null) {
-                
+                Gson gson = new Gson();
                 if (input.equalsIgnoreCase("end")) break;
                 c.send(input);
                 
@@ -51,28 +41,14 @@ public class MineWebSocket extends WebSocketClient{
             if (input.equalsIgnoreCase("end")) break;
         }
         c.close();
-        
     }
-
-    @Override
-    public void onOpen(ServerHandshake handshakedata) {
-        System.out.println( "opened connection\n\n\n");
-    }
-
-    //What the server sends back to you.
-    @Override
-    public void onMessage(String message) {
-         System.out.println( "\nreceived: " + message + "\n");
-         System.out.print("%>");
-    }
-
-    @Override
-    public void onClose(int code, String reason, boolean remote) {
-        System.out.println( "Connection closed by " + ( remote ? "remote peer" : "me" ) );
-    }
-
-    @Override
-    public void onError(Exception ex) {
-        ex.printStackTrace();
+    
+    private static Connection setupConnection() throws URISyntaxException {
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Host: ");
+        String host = scan.nextLine();
+        System.out.print("Port: ");
+        String port = scan.nextLine();
+        return new Connection(new URI("ws://" + host + ":" + port), new Draft_10());
     }
 }
