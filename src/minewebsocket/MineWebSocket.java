@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.Scanner;
 import minewebsocket.handlers.Connection;
 import org.java_websocket.drafts.Draft_10;
@@ -29,10 +30,10 @@ public class MineWebSocket {
         Connection c = setupConnection();
         c.connectBlocking();
         String input = null;
-        while (true) {
+        while (c.isOpen()) {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.print("%>");
-            while ((input = br.readLine()) != null) {
+            while ((input = br.readLine()) != null && c.isOpen()) {
                 Gson gson = new Gson();
                 if (input.equalsIgnoreCase("end")) break;
                 c.send(input);
@@ -49,6 +50,21 @@ public class MineWebSocket {
         String host = scan.nextLine();
         System.out.print("Port: ");
         String port = scan.nextLine();
+        //scan.close();
         return new Connection(new URI("ws://" + host + ":" + port), new Draft_10());
+    }
+    
+    private static String buildMessage() {
+        HashMap values = new HashMap();
+        Scanner scan = new Scanner(System.in);
+        String value = "";
+        while (!value.equals("end")) {
+            System.out.print("Pin: ");
+            value = scan.nextLine();
+            String pin = value;
+            
+        }
+        
+        return null;
     }
 }
