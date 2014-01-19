@@ -56,4 +56,16 @@ public class MineWebSocket {
         System.out.println(json);
         return json;
     }
+    
+    private static HashMap buildPinReadMessage(int pin) {
+        return null;
+    }
+    
+    private static HashMap buildPinWriteMessage(int pin, String message) {
+        return null;
+    }
+    
+    private static String buildLogMessage(String message) {
+        return null;
+    }
 }

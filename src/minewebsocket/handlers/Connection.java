@@ -31,7 +31,6 @@ public class Connection extends WebSocketClient{
     @Override
     public void onMessage(String message) {
         System.out.println( "\nreceived: " + message + "\n");
-        System.out.print("%>");
     }
 
     @Override
