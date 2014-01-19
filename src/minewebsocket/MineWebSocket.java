@@ -44,12 +44,7 @@ public class MineWebSocket {
     }
     
     private static String buildMessage() {
-        HashMap values = new HashMap();
-        System.out.print("Pin Number: ");
-        String pin = scan.nextLine();
-        System.out.print("Value: ");
-        String value = scan.nextLine();
-        values.put(pin, value);
+        HashMap<String, HashMap> values = new HashMap();
             
         Gson gson = new Gson();
         String json = gson.toJson(values);
@@ -65,7 +60,25 @@ public class MineWebSocket {
         return null;
     }
     
-    private static String buildLogMessage(String message) {
+    private static HashMap buildLogMessage(String message) {
         return null;
+    }
+    
+    private static HashMap buildPassMessage(String message) {
+        return null;
+    }
+    
+    private static void clearConsole() {
+        try {
+            String os = System.getProperty("os.name");
+
+            if (os.contains("Windows")) {
+                Runtime.getRuntime().exec("cls");
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (Exception exception) {
+            //  Handle exception.
+        }
     }
 }
