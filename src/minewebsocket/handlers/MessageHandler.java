@@ -4,12 +4,14 @@
  */
 package minewebsocket.handlers;
 
+import minewebsocket.interfaces.JSONListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.LinkedList;
+import minewebsocket.interfaces.ConnectedCallback;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.drafts.Draft_10;
@@ -19,10 +21,10 @@ import org.java_websocket.handshake.ServerHandshake;
  *
  * @author charles
  */
-public class MessageHandler {
+public class MessageHandler implements ConnectedCallback{
     
     private static Connection connection = null;
-    private LinkedList<Listener> listeners = new LinkedList();
+    private LinkedList<JSONListener> listeners = new LinkedList();
     
     public MessageHandler(String hostname, int port) throws URISyntaxException, InterruptedException {
         connection = new Connection(new URI("ws://" + hostname + ":" + port), new Draft_10());
@@ -30,7 +32,7 @@ public class MessageHandler {
     }
     
     //Hook classes in that want to receive the data.
-    public void registerListener(Listener conn) {
+    public void registerListener(JSONListener conn) {
         listeners.addLast(conn);
     }
     
@@ -71,14 +73,14 @@ public class MessageHandler {
         String messageToSend = gson.toJson(write);
         
         if (connection.isOpen()) {
-            connection.send(message);
+            connection.send(messageToSend);
         } else {
             
         }
     }
     
     //Send a message to write to a log
-    private void sendLogMessage(String message) {
+    public void sendLogMessage(String message) {
         JsonObject jobj = new JsonObject();
         jobj.addProperty("log", message);
         String value  = jobj.toString();
@@ -88,13 +90,28 @@ public class MessageHandler {
     }
     
     //Send a broadcast message
-    private void broadcastMessage(String message) {
+    public void broadcastMessage(String message) {
         JsonObject jobj = new JsonObject();
         jobj.addProperty("broadcast", message);
         String value = jobj.toString();
         if (connection.isOpen()){
             connection.send(value);
         }
+    }
+
+    //Test to make sure that connection is open
+    @Override
+    public boolean isConnected() {
+        if (connection.isOpen()) return true;
+        return false;
+    }
+
+    @Override
+    public void closeConnection() {
+        for (JSONListener c: listeners) {
+            c.connectionClosed();
+        }
+        connection.close();
     }
     
     public class Connection extends WebSocketClient{
@@ -110,12 +127,15 @@ public class MessageHandler {
         @Override
         public void onOpen(ServerHandshake handshakedata) {
             System.out.println( "opened connection\n\n\n");
+            for (JSONListener c: listeners) {
+                c.connected(true);
+            }
         }
 
         @Override
         public void onMessage(String message) {
-            System.out.println( "\nreceived: " + message + "\n");
-            for (Listener c : listeners) {
+            //System.out.println( "\nreceived: " + message + "\n");
+            for (JSONListener c : listeners) {
                 c.messageReceived(message);
             }
         }
