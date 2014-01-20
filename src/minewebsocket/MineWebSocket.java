@@ -6,12 +6,9 @@ package minewebsocket;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Scanner;
-import minewebsocket.handlers.Connection;
-import org.java_websocket.drafts.Draft_10;
 
 /**
  *
@@ -25,22 +22,6 @@ public class MineWebSocket {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws URISyntaxException, InterruptedException, IOException {
-        Connection c = setupConnection();
-        c.connectBlocking();
-        String input = null;
-        while (c.isOpen()) {
-            c.send(buildMessage());
-        }
-        c.close();
-    }
-    
-    //Gets some basic connection info and esatablishes a connection with remote host
-    private static Connection setupConnection() throws URISyntaxException {
-        System.out.print("Host: ");
-        String host = scan.nextLine();
-        System.out.print("Port: ");
-        String port = scan.nextLine();
-        return new Connection(new URI("ws://" + host + ":" + port), new Draft_10());
     }
     
     private static String buildMessage() {
