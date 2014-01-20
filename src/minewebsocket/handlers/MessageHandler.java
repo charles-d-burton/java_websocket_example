@@ -19,16 +19,19 @@ import org.java_websocket.handshake.ServerHandshake;
  *
  * @author charles
  */
-public class MessageHandler implements Connections{
+public class MessageHandler {
     
     private static Connection connection = null;
-    private LinkedList<Connections> listeners = new LinkedList();
+    private LinkedList<Connection> listeners = new LinkedList();
     
     public MessageHandler(String hostname, int port) throws URISyntaxException, InterruptedException {
         connection = new Connection(new URI("ws://" + hostname + ":" + port), new Draft_10());
         connection.connect();
     }
     
+    public void registerListener(Connection conn) {
+        listeners.addLast(conn);
+    }
     //Take an arbitrary number of pins, construct a JSON message and send it to the connection
     public void getFromPins(int ... pins) {
         if (pins.length == 0) return; //Safety check
@@ -50,13 +53,13 @@ public class MessageHandler implements Connections{
     }
     
     //Send a message to a pin, command whether or not a response is expected
-    public void sendToPin(String message, int pin, boolean respond) {
+    public void sendToPin(String message, int pin, boolean response) {
         HashMap <String, HashMap> write = new HashMap();
         HashMap <Integer, Object[]> values = new HashMap();
         
         Object vars[] = new Object[2];
         vars[0] = message;
-        vars[1] = Boolean.valueOf(respond);
+        vars[1] = Boolean.valueOf(response);
         
         values.put(Integer.valueOf(pin), vars);
         write.put("write", values);
@@ -88,12 +91,6 @@ public class MessageHandler implements Connections{
         if (connection.isOpen()){
             connection.send(value);
         }
-    }
-
-    @Override
-    public boolean isConnected() {
-        if (connection.isOpen()) return true;
-        return false;
     }
     
     public class Connection extends WebSocketClient{

@@ -8,6 +8,6 @@ package minewebsocket.handlers;
  *
  * @author charles
  */
-public interface Connections {
-    public boolean isConnected();
+public interface Connection {
+    public void messageReceived(String message);
 }
