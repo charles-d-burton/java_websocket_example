@@ -22,17 +22,21 @@ import org.java_websocket.handshake.ServerHandshake;
 public class MessageHandler {
     
     private static Connection connection = null;
-    private LinkedList<Connection> listeners = new LinkedList();
+    private LinkedList<Listener> listeners = new LinkedList();
     
     public MessageHandler(String hostname, int port) throws URISyntaxException, InterruptedException {
         connection = new Connection(new URI("ws://" + hostname + ":" + port), new Draft_10());
         connection.connect();
     }
     
-    public void registerListener(Connection conn) {
+    //Hook classes in that want to receive the data.
+    public void registerListener(Listener conn) {
         listeners.addLast(conn);
     }
-    //Take an arbitrary number of pins, construct a JSON message and send it to the connection
+    
+    //Take an arbitrary number of pins, construct a JSON message and send it to 
+    //the connection for a read request from all of the pins
+    
     public void getFromPins(int ... pins) {
         if (pins.length == 0) return; //Safety check
         HashMap<String, Integer[]> reader = new HashMap();
@@ -111,6 +115,9 @@ public class MessageHandler {
         @Override
         public void onMessage(String message) {
             System.out.println( "\nreceived: " + message + "\n");
+            for (Listener c : listeners) {
+                c.messageReceived(message);
+            }
         }
 
         @Override

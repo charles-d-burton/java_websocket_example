@@ -8,6 +8,6 @@ package minewebsocket.handlers;
  *
  * @author charles
  */
-public interface Connection {
+public interface Listener {
     public void messageReceived(String message);
 }
