@@ -7,8 +7,6 @@ package minewebsocket;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Scanner;
-import minewebsocket.handlers.MessageHandler;
-import minewebsocket.interfaces.JSONListener;
 
 /**
  *

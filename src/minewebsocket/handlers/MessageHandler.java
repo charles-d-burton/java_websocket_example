@@ -28,7 +28,7 @@ public class MessageHandler implements ConnectedCallback{
     
     public MessageHandler(String hostname, int port) throws URISyntaxException, InterruptedException {
         connection = new Connection(new URI("ws://" + hostname + ":" + port), new Draft_10());
-        connection.connect();
+        connection.connectBlocking();
     }
     
     //Hook classes in that want to receive the data.
