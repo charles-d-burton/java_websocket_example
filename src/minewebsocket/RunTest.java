@@ -21,7 +21,7 @@ public class RunTest implements JSONListener{
     
     public void startTest(){
         mh.getFromPins(1,2,3);
-        for (int i = 0; i < 7; i++) {
+        for (int i = 1; i < 9; i++) {
             mh.sendToPin(1, i, true, 0);
         }
         mh.sendLogMessage("Log Test");
