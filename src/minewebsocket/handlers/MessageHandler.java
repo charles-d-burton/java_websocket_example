@@ -27,6 +27,7 @@ public class MessageHandler implements ConnectedCallback{
     private LinkedList<JSONListener> listeners = new LinkedList();
     
     public MessageHandler(String hostname, int port) throws URISyntaxException, InterruptedException {
+        System.out.println(hostname);
         connection = new Connection(new URI("ws://" + hostname + ":" + port), new Draft_10());
         connection.connect();
     }
@@ -59,12 +60,12 @@ public class MessageHandler implements ConnectedCallback{
     }
     
     //Send a message to a pin, command whether or not a response is expected
-    public void sendToPin(String message, int pin, boolean response) {
+    public void sendToPin(int value, int pin, boolean response, int ... read) {
         HashMap <String, HashMap> write = new HashMap();
         HashMap <Integer, Object[]> values = new HashMap();
         
         Object vars[] = new Object[2];
-        vars[0] = message;
+        vars[0] = value;
         vars[1] = Boolean.valueOf(response);
         
         values.put(Integer.valueOf(pin), vars);
@@ -77,6 +78,18 @@ public class MessageHandler implements ConnectedCallback{
         } else {
             
         }
+    }
+    
+    //Method to trigger a pin and broadcast the result
+    public void sendToPin(int value, int pin, boolean response, boolean broadcast
+            , int ... read) {
+        
+    }
+    
+    //Method to trigger pin, set broadcast, and set timeout for how long pin should be active
+    public void sendToPin(int value, int pin, boolean response, boolean broadcast
+            , long triggerTime, int ... read) {
+        
     }
     
     //Send a message to write to a log

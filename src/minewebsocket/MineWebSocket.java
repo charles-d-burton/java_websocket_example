@@ -26,7 +26,9 @@ public class MineWebSocket {
         String host = scan.nextLine();
         System.out.print("Port: ");
         String port = scan.nextLine();*/
-        RunTest rt = new RunTest("raspberrypi", 5000);
+        //scan.close();
+        //scan.nextLine();
+        RunTest rt = new RunTest("chuckyvod.no-ip.biz", 5000);
         rt.startTest();
     }
 }
