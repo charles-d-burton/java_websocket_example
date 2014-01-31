@@ -153,12 +153,14 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         connection.close();
     }
 
-    @Override
-    public void run() {
-        Thread t = new Thread(new QueueManager());
-        t.start();
-    }
     
+    
+    
+    /*
+     * The connection class that actually creates and handles the websocket
+     * connection.  This is also where the registered listeners get their messages
+     * and where they get their connection information.
+     */
     public class Connection extends WebSocketClient {
     
         public Connection(URI serverUri, Draft draft) {
@@ -199,15 +201,23 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         }
     }
     
+    //Start the thread that locks on the queue.  Started here for safety
+    @Override
+    public void run() {
+        Thread t = new Thread(new QueueManager());
+        t.start();
+    }
+    
+    //A separate thread the removes messages from the queue and sends them to the connection
     private class QueueManager implements Runnable {
         @Override
         public void run() {
             try {
-                openConn();
+                openConn();//Blocks
             } catch (InterruptedException ex) {
                 Logger.getLogger(MessageHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Connection opened successfully: Moving on");
+            
             while (!connection.isClosed()) {
                 try {
                     connection.send(queue.take());
@@ -217,10 +227,10 @@ public class MessageHandler implements ConnectedCallback , Runnable{
             }
             
         }
-    }
-    
-    //A simple waitlock so that I'm not trying to send messaged to a broken connection
-    private synchronized boolean openConn() throws InterruptedException {
-        return connection.connectBlocking();
+        
+        //A simple waitlock so that I'm not trying to send messaged to a connection that's not ready
+        private synchronized boolean openConn() throws InterruptedException {
+            return connection.connectBlocking();
+        }
     }
 }
