@@ -13,13 +13,16 @@ import minewebsocket.interfaces.JSONListener;
  * @author charles
  */
 public class RunTest implements JSONListener{
+    Thread t = null;
     MessageHandler mh = null;
     public RunTest(String hostname, int port) throws URISyntaxException, InterruptedException {
         mh = new MessageHandler(hostname, port);
+        t = new Thread(mh);
         mh.registerListener(this);
     }
     
     public void startTest(){
+        t.start();
         mh.getFromPins(1,2,3);
         for (int i = 1; i < 9; i++) {
             mh.sendToPin(1, i, true, 0);
@@ -27,6 +30,15 @@ public class RunTest implements JSONListener{
         mh.sendLogMessage("Log Test");
         mh.broadcastMessage("Broadcast Test");
         //mh.closeConnection();
+
+        //mh.sendToPin("Pin test", 1, true);
+        while (true) {
+            mh.sendToPin(1, 1, true);
+        }
+        //mh.sendLogMessage("Log Test");
+        //mh.broadcastMessage("Broadcast Test");
+       // mh.closeConnection();
+
         
     }
 
