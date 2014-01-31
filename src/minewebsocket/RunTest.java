@@ -33,7 +33,7 @@ public class RunTest implements JSONListener{
         mh.sendToPin(1, 1, 1000, true, true, 1,2,3,4,5);
         //mh.sendLogMessage("Log Test");
         //mh.broadcastMessage("Broadcast Test");
-       // mh.closeConnection();
+        mh.closeConnection();
 
         
     }

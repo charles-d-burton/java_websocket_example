@@ -1,4 +1,4 @@
-package org.java_websocket.handshake;
+package minewebsocket.org.java_websocket.handshake;
 
 public class HandshakeImpl1Server extends HandshakedataImpl1 implements ServerHandshakeBuilder {
 	private short httpstatus;

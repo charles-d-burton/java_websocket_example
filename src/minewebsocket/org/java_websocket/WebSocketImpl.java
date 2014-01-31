@@ -1,4 +1,4 @@
-package org.java_websocket;
+package minewebsocket.org.java_websocket;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -13,28 +13,28 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.drafts.Draft.CloseHandshakeType;
-import org.java_websocket.drafts.Draft.HandshakeState;
-import org.java_websocket.drafts.Draft_10;
-import org.java_websocket.drafts.Draft_17;
-import org.java_websocket.drafts.Draft_75;
-import org.java_websocket.drafts.Draft_76;
-import org.java_websocket.exceptions.IncompleteHandshakeException;
-import org.java_websocket.exceptions.InvalidDataException;
-import org.java_websocket.exceptions.InvalidHandshakeException;
-import org.java_websocket.exceptions.WebsocketNotConnectedException;
-import org.java_websocket.framing.CloseFrame;
-import org.java_websocket.framing.CloseFrameBuilder;
-import org.java_websocket.framing.Framedata;
-import org.java_websocket.framing.Framedata.Opcode;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.handshake.ClientHandshakeBuilder;
-import org.java_websocket.handshake.Handshakedata;
-import org.java_websocket.handshake.ServerHandshake;
-import org.java_websocket.handshake.ServerHandshakeBuilder;
-import org.java_websocket.server.WebSocketServer.WebSocketWorker;
-import org.java_websocket.util.Charsetfunctions;
+import minewebsocket.org.java_websocket.drafts.Draft;
+import minewebsocket.org.java_websocket.drafts.Draft.CloseHandshakeType;
+import minewebsocket.org.java_websocket.drafts.Draft.HandshakeState;
+import minewebsocket.org.java_websocket.drafts.Draft_10;
+import minewebsocket.org.java_websocket.drafts.Draft_17;
+import minewebsocket.org.java_websocket.drafts.Draft_75;
+import minewebsocket.org.java_websocket.drafts.Draft_76;
+import minewebsocket.org.java_websocket.exceptions.IncompleteHandshakeException;
+import minewebsocket.org.java_websocket.exceptions.InvalidDataException;
+import minewebsocket.org.java_websocket.exceptions.InvalidHandshakeException;
+import minewebsocket.org.java_websocket.exceptions.WebsocketNotConnectedException;
+import minewebsocket.org.java_websocket.framing.CloseFrame;
+import minewebsocket.org.java_websocket.framing.CloseFrameBuilder;
+import minewebsocket.org.java_websocket.framing.Framedata;
+import minewebsocket.org.java_websocket.framing.Framedata.Opcode;
+import minewebsocket.org.java_websocket.handshake.ClientHandshake;
+import minewebsocket.org.java_websocket.handshake.ClientHandshakeBuilder;
+import minewebsocket.org.java_websocket.handshake.Handshakedata;
+import minewebsocket.org.java_websocket.handshake.ServerHandshake;
+import minewebsocket.org.java_websocket.handshake.ServerHandshakeBuilder;
+import minewebsocket.org.java_websocket.server.WebSocketServer.WebSocketWorker;
+import minewebsocket.org.java_websocket.util.Charsetfunctions;
 
 /**
  * Represents one end (client or server) of a single WebSocketImpl connection.

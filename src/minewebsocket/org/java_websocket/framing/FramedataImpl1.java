@@ -1,11 +1,11 @@
-package org.java_websocket.framing;
+package minewebsocket.org.java_websocket.framing;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import org.java_websocket.exceptions.InvalidDataException;
-import org.java_websocket.exceptions.InvalidFrameException;
-import org.java_websocket.util.Charsetfunctions;
+import minewebsocket.org.java_websocket.exceptions.InvalidDataException;
+import minewebsocket.org.java_websocket.exceptions.InvalidFrameException;
+import minewebsocket.org.java_websocket.util.Charsetfunctions;
 
 public class FramedataImpl1 implements FrameBuilder {
 	protected static byte[] emptyarray = {};

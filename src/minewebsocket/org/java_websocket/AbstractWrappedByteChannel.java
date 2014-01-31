@@ -1,4 +1,4 @@
-package org.java_websocket;
+package minewebsocket.org.java_websocket;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

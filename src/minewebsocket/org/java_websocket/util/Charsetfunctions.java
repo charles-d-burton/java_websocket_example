@@ -1,4 +1,4 @@
-package org.java_websocket.util;
+package minewebsocket.org.java_websocket.util;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
@@ -7,8 +7,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
 
-import org.java_websocket.exceptions.InvalidDataException;
-import org.java_websocket.framing.CloseFrame;
+import minewebsocket.org.java_websocket.exceptions.InvalidDataException;
+import minewebsocket.org.java_websocket.framing.CloseFrame;
 
 public class Charsetfunctions {
 

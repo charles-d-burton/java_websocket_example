@@ -1,4 +1,4 @@
-package org.java_websocket.server;
+package minewebsocket.org.java_websocket.server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -28,19 +28,19 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.java_websocket.SocketChannelIOHelper;
-import org.java_websocket.WebSocket;
-import org.java_websocket.WebSocketAdapter;
-import org.java_websocket.WebSocketFactory;
-import org.java_websocket.WebSocketImpl;
-import org.java_websocket.WrappedByteChannel;
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.exceptions.InvalidDataException;
-import org.java_websocket.framing.CloseFrame;
-import org.java_websocket.framing.Framedata;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.handshake.Handshakedata;
-import org.java_websocket.handshake.ServerHandshakeBuilder;
+import minewebsocket.org.java_websocket.SocketChannelIOHelper;
+import minewebsocket.org.java_websocket.WebSocket;
+import minewebsocket.org.java_websocket.WebSocketAdapter;
+import minewebsocket.org.java_websocket.WebSocketFactory;
+import minewebsocket.org.java_websocket.WebSocketImpl;
+import minewebsocket.org.java_websocket.WrappedByteChannel;
+import minewebsocket.org.java_websocket.drafts.Draft;
+import minewebsocket.org.java_websocket.exceptions.InvalidDataException;
+import minewebsocket.org.java_websocket.framing.CloseFrame;
+import minewebsocket.org.java_websocket.framing.Framedata;
+import minewebsocket.org.java_websocket.handshake.ClientHandshake;
+import minewebsocket.org.java_websocket.handshake.Handshakedata;
+import minewebsocket.org.java_websocket.handshake.ServerHandshakeBuilder;
 
 /**
  * <tt>WebSocketServer</tt> is an abstract class that only takes care of the

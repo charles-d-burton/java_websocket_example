@@ -16,10 +16,10 @@ import java.util.LinkedList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import minewebsocket.interfaces.ConnectedCallback;
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.drafts.Draft_10;
-import org.java_websocket.handshake.ServerHandshake;
+import minewebsocket.org.java_websocket.client.WebSocketClient;
+import minewebsocket.org.java_websocket.drafts.Draft;
+import minewebsocket.org.java_websocket.drafts.Draft_10;
+import minewebsocket.org.java_websocket.handshake.ServerHandshake;
 
 /**
  *
@@ -83,7 +83,6 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         
         Gson gson = new Gson();
         String messageToSend = gson.toJson(write);
-        System.out.println(messageToSend);
         return queue.offer(messageToSend);
     }
     
@@ -118,7 +117,6 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         
         Gson gson = new Gson();
         String messageToSend = gson.toJson(write);
-        System.out.println(messageToSend);
         return queue.offer(messageToSend);
     }
     
@@ -218,11 +216,15 @@ public class MessageHandler implements ConnectedCallback , Runnable{
                 Logger.getLogger(MessageHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            while (!connection.isClosed()) {
+            while (true) {
                 try {
-                    connection.send(queue.take());
+                    String message = queue.take();
+                    if (connection.isClosing() || connection.isClosed()) break;
+                    connection.send(message);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(MessageHandler.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception e) {
+                    //Logger.getLogger(MessageHandler.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
             

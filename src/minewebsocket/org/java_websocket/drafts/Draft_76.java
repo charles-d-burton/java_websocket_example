@@ -1,4 +1,4 @@
-package org.java_websocket.drafts;
+package minewebsocket.org.java_websocket.drafts;
 
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
@@ -9,21 +9,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.java_websocket.WebSocket.Role;
-import org.java_websocket.exceptions.IncompleteHandshakeException;
-import org.java_websocket.exceptions.InvalidDataException;
-import org.java_websocket.exceptions.InvalidFrameException;
-import org.java_websocket.exceptions.InvalidHandshakeException;
-import org.java_websocket.framing.CloseFrame;
-import org.java_websocket.framing.CloseFrameBuilder;
-import org.java_websocket.framing.Framedata;
-import org.java_websocket.framing.Framedata.Opcode;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.handshake.ClientHandshakeBuilder;
-import org.java_websocket.handshake.HandshakeBuilder;
-import org.java_websocket.handshake.Handshakedata;
-import org.java_websocket.handshake.ServerHandshake;
-import org.java_websocket.handshake.ServerHandshakeBuilder;
+import minewebsocket.org.java_websocket.WebSocket.Role;
+import minewebsocket.org.java_websocket.exceptions.IncompleteHandshakeException;
+import minewebsocket.org.java_websocket.exceptions.InvalidDataException;
+import minewebsocket.org.java_websocket.exceptions.InvalidFrameException;
+import minewebsocket.org.java_websocket.exceptions.InvalidHandshakeException;
+import minewebsocket.org.java_websocket.framing.CloseFrame;
+import minewebsocket.org.java_websocket.framing.CloseFrameBuilder;
+import minewebsocket.org.java_websocket.framing.Framedata;
+import minewebsocket.org.java_websocket.framing.Framedata.Opcode;
+import minewebsocket.org.java_websocket.handshake.ClientHandshake;
+import minewebsocket.org.java_websocket.handshake.ClientHandshakeBuilder;
+import minewebsocket.org.java_websocket.handshake.HandshakeBuilder;
+import minewebsocket.org.java_websocket.handshake.Handshakedata;
+import minewebsocket.org.java_websocket.handshake.ServerHandshake;
+import minewebsocket.org.java_websocket.handshake.ServerHandshakeBuilder;
 
 public class Draft_76 extends Draft_75 {
 	private boolean failed = false;

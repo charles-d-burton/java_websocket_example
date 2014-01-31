@@ -1,4 +1,4 @@
-package org.java_websocket.server;
+package minewebsocket.org.java_websocket.server;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.channels.ByteChannel;
@@ -11,10 +11,10 @@ import java.util.concurrent.Executors;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 
-import org.java_websocket.SSLSocketChannel2;
-import org.java_websocket.WebSocketAdapter;
-import org.java_websocket.WebSocketImpl;
-import org.java_websocket.drafts.Draft;
+import minewebsocket.org.java_websocket.SSLSocketChannel2;
+import minewebsocket.org.java_websocket.WebSocketAdapter;
+import minewebsocket.org.java_websocket.WebSocketImpl;
+import minewebsocket.org.java_websocket.drafts.Draft;
 
 
 public class DefaultSSLWebSocketServerFactory implements WebSocketServer.WebSocketServerFactory {

@@ -1,6 +1,6 @@
-package org.java_websocket.exceptions;
+package minewebsocket.org.java_websocket.exceptions;
 
-import org.java_websocket.framing.CloseFrame;
+import minewebsocket.org.java_websocket.framing.CloseFrame;
 
 public class LimitExedeedException extends InvalidDataException {
 

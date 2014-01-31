@@ -1,4 +1,4 @@
-package org.java_websocket.client;
+package minewebsocket.org.java_websocket.client;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,18 +12,19 @@ import java.nio.channels.NotYetConnectedException;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
-import org.java_websocket.WebSocket;
-import org.java_websocket.WebSocketAdapter;
-import org.java_websocket.WebSocketImpl;
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.drafts.Draft_17;
-import org.java_websocket.exceptions.InvalidHandshakeException;
-import org.java_websocket.framing.CloseFrame;
-import org.java_websocket.framing.Framedata;
-import org.java_websocket.framing.Framedata.Opcode;
-import org.java_websocket.handshake.HandshakeImpl1Client;
-import org.java_websocket.handshake.Handshakedata;
-import org.java_websocket.handshake.ServerHandshake;
+import minewebsocket.org.java_websocket.WebSocket;
+import minewebsocket.org.java_websocket.WebSocket.READYSTATE;
+import minewebsocket.org.java_websocket.WebSocketAdapter;
+import minewebsocket.org.java_websocket.WebSocketImpl;
+import minewebsocket.org.java_websocket.drafts.Draft;
+import minewebsocket.org.java_websocket.drafts.Draft_17;
+import minewebsocket.org.java_websocket.exceptions.InvalidHandshakeException;
+import minewebsocket.org.java_websocket.framing.CloseFrame;
+import minewebsocket.org.java_websocket.framing.Framedata;
+import minewebsocket.org.java_websocket.framing.Framedata.Opcode;
+import minewebsocket.org.java_websocket.handshake.HandshakeImpl1Client;
+import minewebsocket.org.java_websocket.handshake.Handshakedata;
+import minewebsocket.org.java_websocket.handshake.ServerHandshake;
 
 /**
  * A subclass must implement at least <var>onOpen</var>, <var>onClose</var>, and <var>onMessage</var> to be

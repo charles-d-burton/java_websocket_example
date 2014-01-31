@@ -3,7 +3,7 @@
  * Originally from the jFxp project (http://jfxp.sourceforge.net/).
  * Copied with permission June 11, 2012 by Femi Omojola (fomojola@ideasynthesis.com).
  */
-package org.java_websocket;
+package minewebsocket.org.java_websocket;
 
 import java.io.IOException;
 import java.net.Socket;

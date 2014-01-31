@@ -1,17 +1,17 @@
-package org.java_websocket;
+package minewebsocket.org.java_websocket;
 
 import java.net.InetSocketAddress;
 
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.exceptions.InvalidDataException;
-import org.java_websocket.exceptions.InvalidHandshakeException;
-import org.java_websocket.framing.Framedata;
-import org.java_websocket.framing.Framedata.Opcode;
-import org.java_websocket.framing.FramedataImpl1;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.handshake.HandshakeImpl1Server;
-import org.java_websocket.handshake.ServerHandshake;
-import org.java_websocket.handshake.ServerHandshakeBuilder;
+import minewebsocket.org.java_websocket.drafts.Draft;
+import minewebsocket.org.java_websocket.exceptions.InvalidDataException;
+import minewebsocket.org.java_websocket.exceptions.InvalidHandshakeException;
+import minewebsocket.org.java_websocket.framing.Framedata;
+import minewebsocket.org.java_websocket.framing.Framedata.Opcode;
+import minewebsocket.org.java_websocket.framing.FramedataImpl1;
+import minewebsocket.org.java_websocket.handshake.ClientHandshake;
+import minewebsocket.org.java_websocket.handshake.HandshakeImpl1Server;
+import minewebsocket.org.java_websocket.handshake.ServerHandshake;
+import minewebsocket.org.java_websocket.handshake.ServerHandshakeBuilder;
 
 /**
  * This class default implements all methods of the WebSocketListener that can be overridden optionally when advances functionalities is needed.<br>

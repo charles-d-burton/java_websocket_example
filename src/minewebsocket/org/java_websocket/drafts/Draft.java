@@ -1,4 +1,4 @@
-package org.java_websocket.drafts;
+package minewebsocket.org.java_websocket.drafts;
 
 import java.nio.ByteBuffer;
 import java.util.Collections;
@@ -6,25 +6,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-import org.java_websocket.WebSocket.Role;
-import org.java_websocket.exceptions.IncompleteHandshakeException;
-import org.java_websocket.exceptions.InvalidDataException;
-import org.java_websocket.exceptions.InvalidHandshakeException;
-import org.java_websocket.exceptions.LimitExedeedException;
-import org.java_websocket.framing.CloseFrame;
-import org.java_websocket.framing.FrameBuilder;
-import org.java_websocket.framing.Framedata;
-import org.java_websocket.framing.Framedata.Opcode;
-import org.java_websocket.framing.FramedataImpl1;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.handshake.ClientHandshakeBuilder;
-import org.java_websocket.handshake.HandshakeBuilder;
-import org.java_websocket.handshake.HandshakeImpl1Client;
-import org.java_websocket.handshake.HandshakeImpl1Server;
-import org.java_websocket.handshake.Handshakedata;
-import org.java_websocket.handshake.ServerHandshake;
-import org.java_websocket.handshake.ServerHandshakeBuilder;
-import org.java_websocket.util.Charsetfunctions;
+import minewebsocket.org.java_websocket.WebSocket.Role;
+import minewebsocket.org.java_websocket.exceptions.IncompleteHandshakeException;
+import minewebsocket.org.java_websocket.exceptions.InvalidDataException;
+import minewebsocket.org.java_websocket.exceptions.InvalidHandshakeException;
+import minewebsocket.org.java_websocket.exceptions.LimitExedeedException;
+import minewebsocket.org.java_websocket.framing.CloseFrame;
+import minewebsocket.org.java_websocket.framing.FrameBuilder;
+import minewebsocket.org.java_websocket.framing.Framedata;
+import minewebsocket.org.java_websocket.framing.Framedata.Opcode;
+import minewebsocket.org.java_websocket.framing.FramedataImpl1;
+import minewebsocket.org.java_websocket.handshake.ClientHandshake;
+import minewebsocket.org.java_websocket.handshake.ClientHandshakeBuilder;
+import minewebsocket.org.java_websocket.handshake.HandshakeBuilder;
+import minewebsocket.org.java_websocket.handshake.HandshakeImpl1Client;
+import minewebsocket.org.java_websocket.handshake.HandshakeImpl1Server;
+import minewebsocket.org.java_websocket.handshake.Handshakedata;
+import minewebsocket.org.java_websocket.handshake.ServerHandshake;
+import minewebsocket.org.java_websocket.handshake.ServerHandshakeBuilder;
+import minewebsocket.org.java_websocket.util.Charsetfunctions;
 
 /**
  * Base class for everything of a websocket specification which is not common such as the way the handshake is read or frames are transfered.

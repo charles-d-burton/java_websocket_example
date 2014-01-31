@@ -1,14 +1,14 @@
-package org.java_websocket.server;
+package minewebsocket.org.java_websocket.server;
 
 import java.net.Socket;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.util.List;
 
-import org.java_websocket.WebSocketAdapter;
-import org.java_websocket.WebSocketImpl;
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.server.WebSocketServer.WebSocketServerFactory;
+import minewebsocket.org.java_websocket.WebSocketAdapter;
+import minewebsocket.org.java_websocket.WebSocketImpl;
+import minewebsocket.org.java_websocket.drafts.Draft;
+import minewebsocket.org.java_websocket.server.WebSocketServer.WebSocketServerFactory;
 
 public class DefaultWebSocketServerFactory implements WebSocketServerFactory {
 	@Override

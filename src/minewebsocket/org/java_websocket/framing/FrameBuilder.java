@@ -1,8 +1,8 @@
-package org.java_websocket.framing;
+package minewebsocket.org.java_websocket.framing;
 
 import java.nio.ByteBuffer;
 
-import org.java_websocket.exceptions.InvalidDataException;
+import minewebsocket.org.java_websocket.exceptions.InvalidDataException;
 
 public interface FrameBuilder extends Framedata {
 

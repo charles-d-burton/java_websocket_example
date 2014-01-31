@@ -1,4 +1,4 @@
-package org.java_websocket.exceptions;
+package minewebsocket.org.java_websocket.exceptions;
 
 public class IncompleteHandshakeException extends RuntimeException {
 

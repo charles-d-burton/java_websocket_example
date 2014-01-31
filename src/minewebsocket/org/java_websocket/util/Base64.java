@@ -1,4 +1,4 @@
-package org.java_websocket.util;
+package minewebsocket.org.java_websocket.util;
 
 /**
  * <p>Encodes and decodes to and from Base64 notation.</p>
