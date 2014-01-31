@@ -49,8 +49,8 @@ public class MessageHandler implements ConnectedCallback , Runnable{
     //Take an arbitrary number of pins, construct a JSON message and send it to 
     //the connection for a read request from all of the pins
     
-    public void getFromPins(int ... pins) {
-        if (pins.length == 0) return; //Safety check
+    public boolean getFromPins(int ... pins) {
+        if (pins.length == 0 || pins.length > 8) return false; //Safety check
         HashMap<String, Integer[]> reader = new HashMap();
         
         Integer pinNums[] = new Integer[pins.length];
@@ -62,11 +62,11 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         reader.put("read", pinNums);
         Gson gson = new Gson();
         String message = gson.toJson(reader);
-        queue.offer(message);
+        return queue.offer(message);
     }
     
     //Send a message to a pin, command whether or not a response is expected
-    public void sendToPin(int value, int pin, boolean response, int ... read) {
+    public boolean sendToPin(int value, int pin, boolean response, int ... read) {
         HashMap <String, HashMap> write = new HashMap();
         HashMap <Integer, Object[]> values = new HashMap();
         
@@ -78,36 +78,36 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         write.put("write", values);
         Gson gson = new Gson();
         String messageToSend = gson.toJson(write);
-        boolean offer = queue.offer(messageToSend);
-        if (!offer) System.out.println("Rejected from queue");
+        return queue.offer(messageToSend);
+        
     }
     
     //Method to trigger a pin and broadcast the result
-    public void sendToPin(int value, int pin, boolean response, boolean broadcast
+    public boolean sendToPin(int value, int pin, boolean response, boolean broadcast
             , int ... read) {
-        
+        return false;
     }
     
     //Method to trigger pin, set broadcast, and set timeout for how long pin should be active
-    public void sendToPin(int value, int pin, boolean response, boolean broadcast
+    public boolean sendToPin(int value, int pin, boolean response, boolean broadcast
             , long triggerTime, int ... read) {
-        
+        return false;
     }
     
     //Send a message to write to a log
-    public void sendLogMessage(String message) {
+    public boolean sendLogMessage(String message) {
         JsonObject jobj = new JsonObject();
         jobj.addProperty("log", message);
         String value  = jobj.toString();
-        queue.offer(message);
+        return queue.offer(message);
     }
     
     //Send a broadcast message
-    public void broadcastMessage(String message) {
+    public boolean broadcastMessage(String message) {
         JsonObject jobj = new JsonObject();
         jobj.addProperty("broadcast", message);
         String value = jobj.toString();
-        queue.offer(message);
+        return queue.offer(message);
     }
 
     //Test to make sure that connection is open
