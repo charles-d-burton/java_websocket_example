@@ -9,7 +9,7 @@ package minewebsocket.interfaces;
  * @author charles
  */
 public interface JSONListener {
-    public void messageReceived(String message);
-    public void connected(boolean status);
-    public void connectionClosed();
+    public void messageReceived(String message);//Message Received From Socket
+    public void connected(boolean status); //Callback to notify of connection status
+    public void connectionClosed();  //Callback to notify of connection closure
 }
