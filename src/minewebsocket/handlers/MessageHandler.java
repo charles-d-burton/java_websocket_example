@@ -63,7 +63,7 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         reader.put("read", pinNums);
         Gson gson = new Gson();
         String message = gson.toJson(reader);
-        queue.add(message);
+        queue.offer(message);
     }
     
     //Send a message to a pin, command whether or not a response is expected
@@ -79,7 +79,8 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         write.put("write", values);
         Gson gson = new Gson();
         String messageToSend = gson.toJson(write);
-        queue.add(message);
+        boolean offer = queue.offer(messageToSend);
+        if (!offer) System.out.println("Rejected from queue");
     }
     
     //Send a message to write to a log
@@ -87,7 +88,7 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         JsonObject jobj = new JsonObject();
         jobj.addProperty("log", message);
         String value  = jobj.toString();
-        queue.add(message);
+        queue.offer(message);
     }
     
     //Send a broadcast message
@@ -95,7 +96,7 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         JsonObject jobj = new JsonObject();
         jobj.addProperty("broadcast", message);
         String value = jobj.toString();
-        queue.add(message);
+        queue.offer(message);
     }
 
     //Test to make sure that connection is open
