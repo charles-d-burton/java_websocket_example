@@ -65,33 +65,66 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         return queue.offer(message);
     }
     
-    //Send a message to a pin, command whether or not a response is expected
-    public boolean sendToPin(int value, int pin, boolean response, int ... read) {
-        HashMap <String, HashMap> write = new HashMap();
-        HashMap <Integer, Object[]> values = new HashMap();
+    //Write simple command to pin, response will be expected, ping will be triggered for 1 second
+    //response will not be broadcast.
+    
+    public boolean sendToPin(int value, int pin) {
+        //Build write map
+        HashMap <String, Object> write = new HashMap();
+        HashMap <Integer, Object> values = new HashMap();
         
-        Object vars[] = new Object[2];
+        /*Object vars[] = new Object[2];
         vars[0] = value;
-        vars[1] = Boolean.valueOf(response);
+        vars[1] = Boolean.valueOf(response);*/
+        HashMap<String, Object> vars = new HashMap();
+        vars.put("value", value);
+        vars.put("broadcast", false);
+        vars.put("response", true);
+        vars.put("trigger", 1000);
         
         values.put(Integer.valueOf(pin), vars);
         write.put("write", values);
+        
         Gson gson = new Gson();
         String messageToSend = gson.toJson(write);
+        System.out.println(messageToSend);
         return queue.offer(messageToSend);
-        
     }
     
-    //Method to trigger a pin and broadcast the result
-    public boolean sendToPin(int value, int pin, boolean response, boolean broadcast
+    //Send a value to a pin, how long to trigger the pin, whether a response is expected, whether to broad
+    //cast that response and read from pins.
+    public boolean sendToPin(int value, int pin, long triggerTime, boolean response, boolean broadcast
             , int ... read) {
-        return false;
-    }
-    
-    //Method to trigger pin, set broadcast, and set timeout for how long pin should be active
-    public boolean sendToPin(int value, int pin, boolean response, boolean broadcast
-            , long triggerTime, int ... read) {
-        return false;
+        if (read.length > 8) return false;
+        
+        //Build write map
+        HashMap <String, Object> write = new HashMap();
+        HashMap <Integer, Object> values = new HashMap();
+        
+        /*Object vars[] = new Object[2];
+        vars[0] = value;
+        vars[1] = Boolean.valueOf(response);*/
+        HashMap<String, Object> vars = new HashMap();
+        vars.put("value", value);
+        vars.put("resonse", response);
+        vars.put("broadcast", response);
+        vars.put("trigger", triggerTime);
+        
+        values.put(Integer.valueOf(pin), vars);
+        write.put("write", values);
+        
+        //Build read map
+        Integer pinNums[] = new Integer[read.length];
+        
+        for (int i = 0; i < read.length; i++) {
+            pinNums[i] = Integer.valueOf(read[i]);
+        }
+        
+        write.put("read", pinNums);
+        Gson gson = new Gson();
+        String messageToSend = gson.toJson(write);
+        System.out.println(messageToSend);
+        return queue.offer(messageToSend);
     }
     
     //Send a message to write to a log
@@ -141,9 +174,10 @@ public class MessageHandler implements ConnectedCallback , Runnable{
             super(serverURI);
         }
 
+        //Let all registered listeners know that a connection established
         @Override
         public void onOpen(ServerHandshake handshakedata) {
-            System.out.println( "opened connection\n\n\n");
+            System.out.println( "opened connection");
             for (JSONListener c: listeners) {
                 c.connected(true);
             }
@@ -151,7 +185,6 @@ public class MessageHandler implements ConnectedCallback , Runnable{
 
         @Override
         public void onMessage(String message) {
-            //System.out.println( "\nreceived: " + message + "\n");
             for (JSONListener c : listeners) {
                 c.messageReceived(message);
             }
@@ -159,6 +192,9 @@ public class MessageHandler implements ConnectedCallback , Runnable{
 
         @Override
         public void onClose(int code, String reason, boolean remote) {
+            for (JSONListener c: listeners) {
+                c.connectionClosed();
+            }
             System.out.println( "Connection closed by " + ( remote ? "remote peer" : "me" ) );
         }
 
@@ -177,7 +213,7 @@ public class MessageHandler implements ConnectedCallback , Runnable{
                 Logger.getLogger(MessageHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("Connection opened successfully: Moving on");
-            while (true) {
+            while (!connection.isClosed()) {
                 try {
                     connection.send(queue.take());
                 } catch (InterruptedException ex) {
