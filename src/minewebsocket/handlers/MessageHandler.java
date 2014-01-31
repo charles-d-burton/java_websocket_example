@@ -49,7 +49,7 @@ public class MessageHandler implements ConnectedCallback , Runnable{
     //Take an arbitrary number of pins, construct a JSON message and send it to 
     //the connection for a read request from all of the pins
     
-    public boolean getFromPins(int ... pins) {
+    public synchronized boolean getFromPins(int ... pins) {
         if (pins.length == 0 || pins.length > 8) return false; //Safety check
         HashMap<String, Integer[]> reader = new HashMap();
         
@@ -68,15 +68,11 @@ public class MessageHandler implements ConnectedCallback , Runnable{
     //Write simple command to pin, response will be expected, ping will be triggered for 1 second
     //response will not be broadcast.
     
-    public boolean sendToPin(int value, int pin) {
+    public synchronized boolean sendToPin(int value, int pin) {
         //Build write map
-        HashMap <String, Object> write = new HashMap();
-        HashMap <Integer, Object> values = new HashMap();
-        
-        /*Object vars[] = new Object[2];
-        vars[0] = value;
-        vars[1] = Boolean.valueOf(response);*/
-        HashMap<String, Object> vars = new HashMap();
+        HashMap <String, Object> write = new HashMap();//Top level object
+        HashMap <Integer, Object> values = new HashMap();//Store the write values
+        HashMap<String, Object> vars = new HashMap();//Store the parameters
         vars.put("value", value);
         vars.put("broadcast", false);
         vars.put("response", true);
@@ -93,18 +89,16 @@ public class MessageHandler implements ConnectedCallback , Runnable{
     
     //Send a value to a pin, how long to trigger the pin, whether a response is expected, whether to broad
     //cast that response and read from pins.
-    public boolean sendToPin(int value, int pin, long triggerTime, boolean response, boolean broadcast
+    public synchronized boolean sendToPin(int value, int pin, long triggerTime, boolean response, boolean broadcast
             , int ... read) {
         if (read.length > 8) return false;
         
         //Build write map
-        HashMap <String, Object> write = new HashMap();
-        HashMap <Integer, Object> values = new HashMap();
+        HashMap <String, Object> write = new HashMap();//Top level object
+        HashMap <Integer, Object> values = new HashMap();//Store the write values
+        HashMap<String, Object> vars = new HashMap();//Store the write parameters
         
-        /*Object vars[] = new Object[2];
-        vars[0] = value;
-        vars[1] = Boolean.valueOf(response);*/
-        HashMap<String, Object> vars = new HashMap();
+        
         vars.put("value", value);
         vars.put("resonse", response);
         vars.put("broadcast", response);
@@ -119,8 +113,9 @@ public class MessageHandler implements ConnectedCallback , Runnable{
         for (int i = 0; i < read.length; i++) {
             pinNums[i] = Integer.valueOf(read[i]);
         }
-        
         write.put("read", pinNums);
+        
+        
         Gson gson = new Gson();
         String messageToSend = gson.toJson(write);
         System.out.println(messageToSend);
