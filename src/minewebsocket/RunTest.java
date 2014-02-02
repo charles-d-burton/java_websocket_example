@@ -31,9 +31,18 @@ public class RunTest implements JSONListener{
         //mh.sendToPin("Pin test", 1, true);
         
         mh.sendToPin(1, 1, 1000, true, true, 1,2,3,4,5);
+        for (int i = 0; i < 8; i++) {
+            long timeout = 0;
+            if (i == 0) {
+                timeout = 1000;
+            } else {
+                timeout = 1000 * (i);
+            }
+            mh.sendToPin(1, i, timeout, true, true);
+        }
         //mh.sendLogMessage("Log Test");
         //mh.broadcastMessage("Broadcast Test");
-        mh.closeConnection();
+        //mh.closeConnection();
 
         
     }
