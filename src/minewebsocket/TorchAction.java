@@ -12,18 +12,20 @@ import minewebsocket.interfaces.JSONListener;
  *
  * @author charles
  */
-public class RunTest implements JSONListener{
+public class TorchAction implements JSONListener{
     Thread t = null;
     MessageHandler mh = null;
-    public RunTest(String hostname, int port) throws URISyntaxException, InterruptedException {
+    public TorchAction(String hostname, int port) throws URISyntaxException, InterruptedException {
         mh = new MessageHandler(hostname, port);
         t = new Thread(mh);
         mh.registerListener(this);
+        BaconListener bl = new BaconListener(mh);
+        EggListener el = new EggListener(mh);
     }
     
     public void startTest(){
         t.start();
-        mh.getFromPins(1,2,3);
+        mh.getFromPins(0,1,2,3,4,5,6,7);
         mh.sendLogMessage("Log Test");
         mh.broadcastMessage("Broadcast Test");
         //mh.closeConnection();

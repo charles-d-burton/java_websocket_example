@@ -27,8 +27,8 @@ public class MineWebSocket {
         System.out.print("Port: ");
         String port = scan.nextLine();*/
         //scan.close();
-        //scan.nextLine();
-        RunTest rt = new RunTest("chuckyvod.no-ip.biz", 5000);
+        //scan.nextLine()
+        TorchAction rt = new TorchAction("chuckyvod.no-ip.biz", 5000);
         rt.startTest();
     }
 }
